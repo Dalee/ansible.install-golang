@@ -1,0 +1,7 @@
+#
+- name: golang - install godeps
+  shell: "{{ install_dir }}/go/bin/go get github.com/tools/godep"
+  args:
+    creates: "{{ install_dir }}/go/bin/godep"
+  environment:
+    GOPATH: "{{ install_dir }}/go"

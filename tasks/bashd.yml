@@ -1,0 +1,16 @@
+#
+- name: golang - check bash.d directory exists
+  file:
+    path: "/etc/bash.d"
+    state: "directory"
+    mode: 0755
+    owner: "root"
+    group: "root"
+
+- name: golang - install env variables
+  template:
+    src: "golang.rc.j2"
+    dest: "/etc/bash.d/golang.rc"
+    mode: 0644
+    owner: "root"
+    group: "root"

@@ -1,0 +1,3 @@
+- include: golang.yml
+- include: bashd.yml
+- include: godeps.yml

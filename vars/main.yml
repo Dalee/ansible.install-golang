@@ -1,0 +1,4 @@
+# see https://golang.org/dl/
+url: https://storage.googleapis.com/golang/go1.7.3.linux-amd64.tar.gz
+temp: /tmp/golang.tar.gz
+install_dir: /usr/local/golang

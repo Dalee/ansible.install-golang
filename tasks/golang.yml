@@ -1,0 +1,38 @@
+#
+- name: golang - check already installed
+  stat:
+    path: "{{ install_dir }}/go/bin/go"
+  register: golang_binary
+
+- name: golang - check download cached
+  stat:
+    path: "{{ temp }}"
+  register: golang_archive
+  when: not golang_binary.stat.exists
+
+- name: golang - download precompiled binaries
+  get_url:
+    url: "{{ url }}"
+    dest: "{{ temp }}"
+  when: not golang_binary.stat.exists and not golang_archive.stat.exists
+
+- name: golang - ensure destination directory exists
+  file:
+    dest: "{{ install_dir }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+  when: not golang_binary.stat.exists
+
+- name: golang - install binaries
+  unarchive:
+    src: "{{ temp }}"
+    dest: "{{ install_dir }}"
+    copy: "no"
+  when: not golang_binary.stat.exists
+
+- name: golang - create system-wide symlinks
+  file:
+    src: "{{ install_dir }}/go"
+    dest: "/usr/local/go"
+    state: "link"
